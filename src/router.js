@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Fylkestingsvalg from './views/Fylkestingsvalg.vue'
+import Kommunestyrevalg from './views/Kommunestyrevalg.vue'
+import Bydelsutvalg_oslo from './views/Bydelsutvalg_oslo.vue'
 
 Vue.use(Router)
 
@@ -16,6 +18,16 @@ export default new Router({
       path: '/fylkestingsvalg',
       name: 'fylkestingvalg',
       component: Fylkestingsvalg
+    },
+    {
+      path: '/kommunestyrevalg',
+      name: 'kommunestyrevalg',
+      component: Kommunestyrevalg
+    },
+    {
+      path: '/bydelsutvalg_oslo',
+      name: 'bydelsutvalg_oslo',
+      component: Bydelsutvalg_oslo
     },
     {
       path: '/about',

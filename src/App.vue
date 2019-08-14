@@ -2,7 +2,11 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/Fylkestingsvalg">Fylkestingsvalg</router-link>
+      <router-link to="/fylkestingsvalg">Fylkestingsvalg</router-link> |
+      <router-link to="/kommunestyrevalg">Kommunestyrevalg</router-link> |
+      <router-link to="/bydelsutvalg_oslo">Bydelsutvalg Oslo</router-link>
+      
+      
     </div>
     <router-view/>
   </div>
