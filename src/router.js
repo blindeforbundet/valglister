@@ -21,6 +21,11 @@ export default new Router({
     },
     {
       path: '/kommunestyrevalg',
+      name: 'kommunestyrevalg_velg_fylke',
+      component: Kommunestyrevalg
+    },
+    {
+      path: '/kommunestyrevalg/:fylke',
       name: 'kommunestyrevalg',
       component: Kommunestyrevalg
     },

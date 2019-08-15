@@ -4,7 +4,7 @@
 
     <label>Parti
     <select v-model="selected_parti">
-      <option v-bind:value="undefined"></option>
+      <option v-bind:value="undefined">Vis alle</option>
       <option v-for="v,k in partier" v-bind:value="v">
         {{k}}
       </option>
@@ -13,17 +13,17 @@
 
     <label>Bydel
     <select v-model="selected_bydel">
-    <option v-bind:value="undefined"></option>
+    <option v-bind:value="undefined">Vis alle</option>
       <option v-for="f in bydeler" v-bind:value="f">
         {{f}}
       </option>
     </select>
     </label>
-    <a v-on:click="selected_bydel = undefined; selected_parti = undefined" v-if="selected_bydel || selected_parti">Nullstill filter (vis alt)</a>
 
         <div v-for="l in filtered_parti">
     <!-- {{l}} -->
-    <p>{{l.kandidatnr}} {{l.bydel}} {{l.navn}} ({{l.kjønn }} {{l.fødselsår }}) {{l.partinavn}} (partikode: {{l.partikode}}) {{l.stemmetillegg}}</p>
+        <p v-if="!l.stemmetillegg">{{l.kandidatnr}} {{l.fylke}} {{l.navn}} ({{l.kjønn }}, f. {{l.fødselsår }}) {{l.partinavn}}</p>
+        <p v-if="l.stemmetillegg" aria-label="Stemmetillegg"><strong>{{l.kandidatnr}} {{l.fylke}} {{l.navn}} ({{l.kjønn }}, f. {{l.fødselsår }}) {{l.partinavn}}</strong></p>
     </div>
   </div>
 </template>
