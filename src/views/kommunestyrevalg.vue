@@ -1,22 +1,27 @@
 <template>
-  <div class="home">
+  <div class="home" v-cloak>
+
   <h1>Kommunestyrevalg</h1>
+    <label>Parti
     <select v-model="selected_parti">
       <option v-bind:value="undefined"></option>
       <option v-for="v,k in partier" v-bind:value="v">
         {{k}}
       </option>
     </select>
-        <select v-model="selected_fylke">
+    </label>
+
+    <label>Fylke
+    <select v-model="selected_fylke">
     <option v-bind:value="undefined"></option>
       <option v-for="f in fylker" v-bind:value="f">
         {{f}}
       </option>
     </select>
-    <a v-on:click="selected_fylke = undefined; selected_parti = undefined">Nullstill filter (vis alt)</a>
+    </label>
+    <a v-on:click="selected_fylke = undefined; selected_parti = undefined" v-if="selected_fylke || selected_parti">Nullstill filter (vis alt)</a>
 
         <div v-for="l in filtered_parti">
-    <!-- {{l}} -->
     <p>{{l.kandidatnr}} {{l.fylke}} {{l.navn}} ({{l.kjønn }} {{l.fødselsår }}) {{l.partinavn}} (partikode: {{l.partikode}}) {{l.stemmetillegg}}</p>
     </div>
   </div>
@@ -31,14 +36,14 @@ export default {
   components: {
 
   },
-  created() {
-    json.forEach((v)=>{
+  mounted() {
+    /*json.forEach((v)=>{
       this.partier[v.partinavn] = v.partikode
-    })
-
+    })*/
     var fylker_dict = {}
     json.forEach((v)=>{
       fylker_dict[v.fylke] = true
+      this.partier[v.partinavn] = v.partikode
       
     })
     this.fylker = [ ...Object.keys(fylker_dict)]
@@ -50,7 +55,7 @@ export default {
         partier: {},
         selected_parti: undefined,
         selected_fylke: undefined,
-        fylker: undefined
+        fylker: undefined,
     }
   },
   computed: {
@@ -61,7 +66,6 @@ export default {
         }
         if(this.selected_parti !== undefined){
           filtered_data = filtered_data.filter(i => i.partikode == this.selected_parti)
-
         }
         return filtered_data
     },

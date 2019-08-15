@@ -1,19 +1,25 @@
 <template>
   <div class="home">
   <h1>Bydelsutvalg oslo</h1>
+
+    <label>Parti
     <select v-model="selected_parti">
       <option v-bind:value="undefined"></option>
       <option v-for="v,k in partier" v-bind:value="v">
         {{k}}
       </option>
     </select>
-        <select v-model="selected_bydel">
+    </label>
+
+    <label>Bydel
+    <select v-model="selected_bydel">
     <option v-bind:value="undefined"></option>
       <option v-for="f in bydeler" v-bind:value="f">
         {{f}}
       </option>
     </select>
-    <a v-on:click="selected_bydel = undefined; selected_parti = undefined">Nullstill filter (vis alt)</a>
+    </label>
+    <a v-on:click="selected_bydel = undefined; selected_parti = undefined" v-if="selected_bydel || selected_parti">Nullstill filter (vis alt)</a>
 
         <div v-for="l in filtered_parti">
     <!-- {{l}} -->
@@ -32,13 +38,14 @@ export default {
 
   },
   created() {
-    json.forEach((v)=>{
+    /*json.forEach((v)=>{
       this.partier[v.partinavn] = v.partikode
-    })
+    })*/
 
     var bydel_dict = {}
     json.forEach((v)=>{
       bydel_dict[v.bydel] = true
+      this.partier[v.partinavn] = v.partikode
       
     })
     this.bydeler = [ ...Object.keys(bydel_dict)]
