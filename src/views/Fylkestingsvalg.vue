@@ -1,20 +1,33 @@
 <template>
   <div class="fylkestingsvalg">
-  <h1>Fylkestingsvalg</h1>
-  <!--
-    <div v-for="v,k in partier">
-    <button v-on:click="selected_parti=v">{{k}}</button>
-    </div>
-    -->
+  <div class="header__container">
+    <h1>Fylkestingsvalg</h1>  
+    <ul>
+      <li v-for="fylke in fylker" v-if="!selected_fylke"> 
+          <router-link :to="{ name: 'fylkestingvalg', params: { fylke: fylke }}">{{fylke}}</router-link>
+      </li>
+    </ul>
+    <!--
+      <div v-for="v,k in partier">
+      <button v-on:click="selected_parti=v">{{k}}</button>
+      </div>
+      -->
+  </div>
+
+  <div v-if="selected_fylke">
+
+  <div class="sticky">
+  <h2>Kandidater i <strong>{{selected_fylke}} </strong> <small>(<router-link :to="{ name: 'fylkestingvalg_velg_fylke' }">velg et annet fylke</router-link>)</small></h2>
     <label>Parti
     <select v-model="selected_parti">
-      <option v-bind:value="undefined"></option>
+      <option v-bind:value="undefined">Vis alle</option>
       <option v-for="v,k in partier" v-bind:value="v">
         {{k}}
       </option>
     </select>
     </label>
 
+    <!--
     <label>Fylke
     <select v-model="selected_fylke">
     <option v-bind:value="undefined"></option>
@@ -23,13 +36,16 @@
       </option>
     </select>
     </label>
-    <a v-on:click="selected_fylke = undefined; selected_parti = undefined" v-if="selected_fylke || selected_parti">Nullstill filter (vis alt)</a>
-
-    <div v-for="l in filtered_parti">
-    <!-- {{l}} -->
-        <p v-if="!l.stemmetillegg">{{l.kandidatnr}} {{l.fylke}} {{l.navn}} ({{l.kjønn }}, f. {{l.fødselsår }}) {{l.partinavn}}</p>
-        <p v-if="l.stemmetillegg" aria-label="Stemmetillegg"><strong>{{l.kandidatnr}} {{l.fylke}} {{l.navn}} ({{l.kjønn }}, f. {{l.fødselsår }}) {{l.partinavn}}</strong></p>
+    -->
+    <!-- <a v-on:click="selected_fylke = undefined; selected_parti = undefined" v-if="selected_fylke || selected_parti">Nullstill filter (vis alt)</a> -->
     </div>
+    <div  class="content__container">
+      <template v-for="l in filtered_parti">
+          <p v-if="!l.stemmetillegg">{{l.kandidatnr}} {{l.fylke}} {{l.navn}} ({{l.kjønn }}, f. {{l.fødselsår }}) {{l.partinavn}}</p>
+          <p v-if="l.stemmetillegg" aria-label="Stemmetillegg"><strong>{{l.kandidatnr}} {{l.fylke}} {{l.navn}} ({{l.kjønn }}, f. {{l.fødselsår }}) {{l.partinavn}}</strong></p>
+      </template>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -54,6 +70,9 @@ export default {
     })
     this.fylker = [ ...Object.keys(fylker_dict)]
     this.fylker = this.fylker.sort()
+    if(this.$route.params.fylke !== undefined) {
+      this.selected_fylke = this.$route.params.fylke
+    }
   },
   data(){
     return{

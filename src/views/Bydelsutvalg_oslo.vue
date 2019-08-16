@@ -1,16 +1,10 @@
 <template>
   <div class="home">
-  <h1>Bydelsutvalg oslo</h1>
+  <div class="header__container">
+    <h1>Bydelsutvalg oslo</h1>
+  </div>
 
-    <label>Parti
-    <select v-model="selected_parti">
-      <option v-bind:value="undefined">Vis alle</option>
-      <option v-for="v,k in partier" v-bind:value="v">
-        {{k}}
-      </option>
-    </select>
-    </label>
-
+  <div class="sticky">
     <label>Bydel
     <select v-model="selected_bydel">
     <option v-bind:value="undefined">Vis alle</option>
@@ -20,11 +14,23 @@
     </select>
     </label>
 
-        <div v-for="l in filtered_parti">
-    <!-- {{l}} -->
+    <label>Parti
+    <select v-model="selected_parti">
+      <option v-bind:value="undefined">Vis alle</option>
+      <option v-for="v,k in partier" v-bind:value="v">
+        {{k}}
+      </option>
+    </select>
+    </label>
+  </div>
+
+  <div class="content__container">
+    <template v-for="l in filtered_parti" class="results__container">
         <p v-if="!l.stemmetillegg">{{l.kandidatnr}} {{l.fylke}} {{l.navn}} ({{l.kjønn }}, f. {{l.fødselsår }}) {{l.partinavn}}</p>
         <p v-if="l.stemmetillegg" aria-label="Stemmetillegg"><strong>{{l.kandidatnr}} {{l.fylke}} {{l.navn}} ({{l.kjønn }}, f. {{l.fødselsår }}) {{l.partinavn}}</strong></p>
-    </div>
+    </template>
+  </div>
+  
   </div>
 </template>
 
