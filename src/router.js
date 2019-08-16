@@ -16,6 +16,11 @@ export default new Router({
     },
     {
       path: '/fylkestingsvalg',
+      name: 'fylkestingvalg_velg_fylke',
+      component: Fylkestingsvalg
+    },
+    {
+      path: '/fylkestingsvalg/:fylke',
       name: 'fylkestingvalg',
       component: Fylkestingsvalg
     },
