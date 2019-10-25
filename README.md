@@ -1,5 +1,7 @@
 # valglister
 
+Tilgjengelige valglister, se demo: https://www.blindeforbundet.no/static/valglister/
+
 ## Project setup
 ```
 npm install
